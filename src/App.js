@@ -45,6 +45,14 @@ function App() {
     await API.graphql({ query: deleteNoteMutation, variables: { input: { id } }});
   }
 
+  async function onChange(e) {
+    if (!e.target.files[0]) return
+    const file = e.target.files[0];
+    setFormData({ ...formData, image: file.name });
+    await Storage.put(file.name, file);
+    fetchNotes();
+  }
+
   return (
     <div className="App">
       <h1>My Notes App</h1>
